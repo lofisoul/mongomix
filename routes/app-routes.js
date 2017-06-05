@@ -99,4 +99,20 @@ module.exports = function(app) {
       }
     });
   });
+
+  //modify the post saved
+  app.put('/saved/:_id', function(req,res){
+    Article.findOneAndUpdate(
+      {_id: req.params._id}, //filter
+      {saved: req.body.saved}, //condition to update
+      function(err, doc) {
+        if(err) {
+          console.log('Saved Update Error: ' + err);
+        } else {
+          res.redirect('/saved');
+        }
+      }
+    );
+  });
+
 } //here's the export!

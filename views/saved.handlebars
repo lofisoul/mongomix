@@ -17,7 +17,7 @@
           <div class="post-img" style="background-image:url({{this.img}})">
           </div>
           <div class="post-date">{{this.date}}</div>
-          <form class="remove-saved" action="/{{this._id}}?_method=PUT" method="POST">
+          <form class="remove-saved" action="/saved/{{this._id}}?_method=PUT" method="POST">
             <input type="hidden" name="saved" value="false">
             <button class="btn btn-info" type="submit">Remove From Saved</button>
           </form>
