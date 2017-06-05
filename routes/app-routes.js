@@ -90,4 +90,13 @@ module.exports = function(app) {
   });
 
   //render the saved articles page
+  app.get('/saved', function(req,res){
+    Article.find({saved: true}).sort('updatedAt').exec(function(err,doc){
+      if(err){
+        console.log('Saved Error: '+ err)
+      } else {
+        res.render('saved', {Articles: doc});
+      }
+    });
+  });
 } //here's the export!
