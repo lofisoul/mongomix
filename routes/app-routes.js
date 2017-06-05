@@ -73,4 +73,21 @@ module.exports = function(app) {
       }
     });
   });
-}
+
+  //modify the post saved
+  app.put('/:_id', function(req,res){
+    Article.findOneAndUpdate(
+      {_id: req.params._id}, //filter
+      {saved: req.body.saved}, //condition to update
+      function(err, doc) {
+        if(err) {
+          console.log('Update Error: ' + err);
+        } else {
+          res.redirect('/');
+        }
+      }
+    );
+  });
+
+  //render the saved articles page
+} //here's the export!

@@ -1,6 +1,7 @@
 //requires!!
 var express = require('express');
 var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 
@@ -17,7 +18,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 // Override with POST having ?_method=DELETE
-//app.use(methodOverride("_method"));
+app.use(methodOverride("_method"));
 
 app.use(express.static("public"));
 

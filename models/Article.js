@@ -25,6 +25,10 @@ var ArticleSchema = new Schema({
   date: {
     type: String,
     require: true
+  },
+  saved: {
+    type: Boolean,
+    default: false
   }
   /*note: {
     type: Schema.Types.ObjectId,
