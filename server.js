@@ -4,6 +4,10 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+//favicon
+var favicon = require('serve-favicon');
+var path = require('path');
+
 
 //set mongoose for ES6
 mongoose.Promise = Promise;
@@ -18,15 +22,18 @@ app.use(bodyParser.urlencoded({
 }));
 
 // Override with POST having ?_method=DELETE
-app.use(methodOverride("_method"));
+app.use(methodOverride('_method'));
 
-app.use(express.static("public"));
+app.use(express.static('public'));
 
 //handlebars
 var exphbs = require('express-handlebars');
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
+
+//favicon
+app.use(favicon(path.join(__dirname,'public','favicon.ico')));
 
 //configure db
 mongoose.connect('mongodb://localhost/mongomix');

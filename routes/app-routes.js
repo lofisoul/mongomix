@@ -64,7 +64,7 @@ module.exports = function(app) {
   //display them on landing page
   app.get('/', function(req, res){
     //grab doc from array
-    Article.find({}).sort('created_at').exec(function(err,doc){
+    Article.find({}).sort('-created_at').exec(function(err,doc){
       //log errors
       if(err) {
         console.log('Article find: ' + err);
