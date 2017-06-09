@@ -115,4 +115,38 @@ module.exports = function(app) {
     );
   });
 
+  //create a new note
+  app.post('/saved/note/:id', function(req, res){
+    //create a new note object and pass it the req. body
+    var newNote = new Note(req.body);
+
+    //save the new note to the db
+    newNote.save(function(err,doc){
+      if(err) {
+        console.log(err);
+      } else {
+        Article.findOneAndUpdate({'_id': req.params.id}, {'note':doc._id})
+        .exec(function(err,doc){
+          if(err) {
+            console.log(err);
+          } else {
+            console.log('Check you stocking!' + ' ' + doc);
+            res.redirect('/saved');
+          }
+        });
+      }
+    });
+  });
+
+  //delete the note from the database
+  app.delete('/note/:id', function(req,res) {
+    Note.findById(req.params._id, function(err,doc){
+      doc.remove(function(err){
+        res.redirect('/saved');
+      })
+    });
+  });
+
+
+
 } //here's the export!
