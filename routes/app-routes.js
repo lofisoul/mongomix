@@ -9,7 +9,7 @@ var request = require('request');
 
 //models
 var Article = require('../models/Article.js');
-//var Note = require('./models/Note.js');
+var Note = require('../models/Note.js');
 
 module.exports = function(app) {
   //scrape Last Gas Station
@@ -95,6 +95,7 @@ module.exports = function(app) {
       if(err){
         console.log('Saved Error: '+ err)
       } else {
+        console.log('hitting here!');
         res.render('saved', {Articles: doc});
       }
     });
@@ -115,8 +116,25 @@ module.exports = function(app) {
     );
   });
 
+  //grab an article by it's ID and populate notes
+  //this will be used in ajax app level request!
+  app.get('/saved/:id', function(req,res){
+    Article.findOne({_id: req.params.id}) //filter
+      .populate('note') //populating with all the notes
+      .exec(function(err,doc){
+        if(err){
+          console.log(err);
+        } else{
+          console.log('success!');
+          console.log(doc);
+          //send a json doc to the browser
+          res.json(doc);
+        }
+      });
+  });
+
   //create a new note
-  app.post('/saved/note/:id', function(req, res){
+  app.post('/saved/:_id', function(req, res){
     //create a new note object and pass it the req. body
     var newNote = new Note(req.body);
 

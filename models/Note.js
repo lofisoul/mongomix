@@ -6,8 +6,10 @@ var Schema = mongoose.Schema;
 //create the note schema
 var NoteSchema = new Schema({
     body: {
-      type: String
-    },{
+      type: String,
+      require: false
+    }
+  },{
       timestamps: {
         createdAt: 'created_at'
       }
