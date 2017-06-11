@@ -30,10 +30,11 @@ var ArticleSchema = new Schema({
     type: Boolean,
     default: false
   },
-  note: {
+  //storing multiple notes in an array
+  note: [{
     type: Schema.Types.ObjectId,
     ref: 'Note'
-  }
+  }]
 },{
   timestamps: {
     createdAt: 'created_at'

@@ -125,8 +125,6 @@ module.exports = function(app) {
         if(err){
           console.log(err);
         } else{
-          console.log('success!');
-          console.log(doc);
           //send a json doc to the browser
           res.json(doc);
         }
@@ -143,7 +141,11 @@ module.exports = function(app) {
       if(err) {
         console.log(err);
       } else {
-        Article.findOneAndUpdate({'_id': req.params.id}, {'note':doc._id})
+        console.log('doc before update:' + doc);
+        console.log('article ID before update:' + req.body._id);
+        console.log('note before update:' + doc._id);
+        //this is the issue!
+        Article.findOneAndUpdate({_id: req.params._id}, {$push: {note: doc._id}}, {new: true})
         .exec(function(err,doc){
           if(err) {
             console.log(err);

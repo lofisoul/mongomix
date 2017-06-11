@@ -13,8 +13,8 @@ $(document).on('click','#noteBtn', function(){
   })
   .done(function(data){
     console.log(data);
-    for(i=0; i<data.length; i++) {
-      console.log(data.note._id);
-    }
+    // for(i=0; i<data.length; i++) {
+    //   console.log(data.note._id);
+    // }
   });
 });
