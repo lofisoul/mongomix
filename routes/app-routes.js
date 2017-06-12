@@ -120,7 +120,7 @@ module.exports = function(app) {
   //this will be used in ajax app level request!
   app.get('/saved/:id', function(req,res){
     Article.findOne({_id: req.params.id}) //filter
-      .populate('note') //populating with all the notes
+      .populate('notes') //populating with all the notes
       .exec(function(err,doc){
         if(err){
           console.log(err);
@@ -132,7 +132,7 @@ module.exports = function(app) {
   });
 
   //create a new note
-  app.post('/saved/:_id', function(req, res){
+  app.post('/saved/:id', function(req, res){
     //create a new note object and pass it the req. body
     var newNote = new Note(req.body);
 
@@ -142,15 +142,15 @@ module.exports = function(app) {
         console.log(err);
       } else {
         console.log('doc before update:' + doc);
-        console.log('article ID before update:' + req.body._id);
+        console.log('PARAMS: ' + req.params.id);
+        console.log('article ID before update:' + req.params.id);
         console.log('note before update:' + doc._id);
         //this is the issue!
-        Article.findOneAndUpdate({_id: req.params._id}, {$push: {note: doc._id}}, {new: true})
-        .exec(function(err,doc){
+        Article.findOneAndUpdate({_id: req.params.id}, {$push: {notes: doc._id}}, {new: true}, function(err,newdoc){
           if(err) {
             console.log(err);
           } else {
-            console.log('Check you stocking!' + ' ' + doc);
+            console.log('Check you stocking!' + ' ' + newdoc);
             res.redirect('/saved');
           }
         });

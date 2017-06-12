@@ -31,7 +31,7 @@ var ArticleSchema = new Schema({
     default: false
   },
   //storing multiple notes in an array
-  note: [{
+  notes: [{
     type: Schema.Types.ObjectId,
     ref: 'Note'
   }]
