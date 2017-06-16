@@ -17,24 +17,36 @@
         <div class="post-img" style="background-image:url({{this.img}})">
         </div>
         <div class="post-date">{{this.date}}</div>
-        <button class="btn btn-info" id="noteBtn" data-id="{{this._id}}">Notes</button>
+        <button class="btn btn-info" id="noteBtn" data-id="{{this._id}}" data-toggle="modal" data-target="#modal_{{this._id}}">Notes</button>
         <form class="remove-saved" action="/saved/{{this._id}}?_method=PUT" method="POST">
           <input type="hidden" name="saved" value="false">
           <button class="btn btn-warning" type="submit">Remove From Saved</button>
         </form>
       </div>
       </div>
-      <div class="comment">
-        <div class="comment-window">
-        </div>
-        <h2>Create a note</h2>
-        <form class="comment-form" action="/saved/{{this._id}}" method="POST">
-          <div class="form-group">
-            <label>Comment</label>
-            <textarea id="body" name="body"></textarea>
-            <button class="btn btn-info" type="submit">Add Note</button>
+      <div class="modal fade" id="modal_{{this._id}}">
+        <div class="modal-dialog" role="document" data-postID="{{this._id}}">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Notes for {{this.title}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="comment-window">
+              </div>
+              <form class="comment-form" action="/saved/{{this._id}}" method="POST">
+                <div class="form-group">
+                  <label>Comment</label>
+                  <textarea id="body" name="body"></textarea>
+                  <button class="btn btn-info" type="submit">Add Note</button>
+                </div>
+              </form>
+            <div class="modal-footer">
+            </div>
           </div>
-        </form>
+        </div>
       </div>
 
     </li>

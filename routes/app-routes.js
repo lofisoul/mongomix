@@ -152,6 +152,7 @@ module.exports = function(app) {
           } else {
             console.log('Check you stocking!' + ' ' + newdoc);
             res.redirect('/saved');
+
           }
         });
       }
@@ -159,11 +160,15 @@ module.exports = function(app) {
   });
 
   //delete the note from the database
-  app.delete('/note/:id', function(req,res) {
-    Note.findById(req.params._id, function(err,doc){
-      doc.remove(function(err){
-        res.redirect('/saved');
-      })
+  app.post('/delete/:id', function(req,res) {
+    Note.remove({_id: req.params.id}, function(err) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log('document removed');
+            res.redirect('/saved');
+        }
     });
   });
 
