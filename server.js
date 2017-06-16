@@ -36,7 +36,13 @@ app.set('view engine', 'handlebars');
 app.use(favicon(path.join(__dirname,'public','favicon.ico')));
 
 //configure db
-mongoose.connect('mongodb://localhost/mongomix');
+//adding mongoose heroku deployment
+if(process.env.MONGODB_URI) {
+    mongoose.connect(process.env.MONGODB_URI);
+} else{
+  mongoose.connect('mongodb://localhost/mongomix');
+}
+
 var db = mongoose.connection;
 //show mongoose errs
 db.on('error', function(err){
