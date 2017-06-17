@@ -5,18 +5,18 @@
     <li class="post">
     <div class="main row">
 
-      <div class="post-info col-xs-8 col-sm-9">
+      <div class="post-info col-md-4 col-lg-3">
         <h2>
           <a href="{{this.link}}">
             {{this.title}}
           </a>
         </h2>
-        <iframe src="{{this.player}}"></iframe>
-      </div>
-      <div class="post-sidebar col-xs-4 col-sm-3">
-        <div class="post-img" style="background-image:url({{this.img}})">
-        </div>
         <div class="post-date">{{this.date}}</div>
+      </div>
+      <div class="post-sidebar col-md-8 col-lg-9">
+        <img class="post-img" src="{{this.img}})" alt="{{this.title}}">
+        <h3>Media</h3>
+        <iframe src="{{this.player}}"></iframe>
         <button class="btn btn-info" id="noteBtn" data-id="{{this._id}}" data-toggle="modal" data-target="#modal_{{this._id}}">Notes</button>
         <form class="remove-saved" action="/saved/{{this._id}}?_method=PUT" method="POST">
           <input type="hidden" name="saved" value="false">
